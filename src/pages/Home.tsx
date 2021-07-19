@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import IllustrationImg from '../assets/images/illustration.svg';
 import LogoImg from '../assets/images/logo.svg';
 import GoogleIconImg from '../assets/images/google-icon.svg';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import '../styles/auth.scss';
 import { Button } from '../components/Button';
@@ -35,12 +37,12 @@ export function Home(){
         const roomRef = await database.ref(`/rooms/${roomCode}`).get();
 
         if (!roomRef.exists()) {
-            alert('Room does not exist.');
+            toast.dark('A sala não existe');
             return;
         }
 
         if (roomRef.val().closedAt) {
-            alert("A sala já se encontra encerrada");
+            toast.dark('A sala já se encontra encerrada');
             return;
         }
 
@@ -80,6 +82,7 @@ export function Home(){
                     </form>
                 </div>
             </main>
+            <ToastContainer />
         </div>
     );
 }
